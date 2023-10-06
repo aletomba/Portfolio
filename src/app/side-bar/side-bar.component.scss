@@ -1,0 +1,37 @@
+.wrapper {
+  padding: 1rem;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.profile-info {
+  flex: 1; /* Permite que ocupe el espacio restante en la fila */
+}
+
+.photo-presentation img {
+  max-width: 100%;
+  height: 15rem;
+}
+
+.photo-presentation {
+  margin-top: 1rem;
+  text-align: center;
+  /* Ajusta el margen izquierdo según sea necesario */
+}
+
+.sub-title{
+  padding: .5rem 0;
+}
+
+.mat-divider{
+  border-top-color: #f8f9fa;
+}
+
+.mat-toolbar{
+  background-color: black;
+}
+
+.mat-icon{
+  color: white;
+}

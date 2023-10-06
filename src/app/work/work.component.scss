@@ -1,0 +1,29 @@
+
+.block-repo{
+  height: 15rem;
+  padding: .25rem ;
+  display: block;
+  .block-repo-in{
+    background-color: #e2bab829;
+    width: 100%;
+    height: 100%;
+    .left{
+      width: 80%;
+      flex-direction: column;
+      .title{
+        font-size: 1.4rem;
+      }
+
+    }
+    .right{
+        width: 20%;
+        flex-direction: column;
+        justify-content: end;
+        align-items: end;
+
+    }
+
+
+  }
+
+}

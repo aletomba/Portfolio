@@ -1,0 +1,37 @@
+
+.wrapper {
+
+  box-shadow: 0px 2px 4px ;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.barra{
+  background-color:black ;
+}
+
+.item {
+  display: flex;
+  bottom: auto;
+  transition: all ease 200;
+  .example-icon{
+    cursor: pointer;
+    color: black;
+    &:hover{
+      opacity: .8;
+    }
+  }
+}
+
+.item hr {
+  margin: 8px 0; /* Ajustamos el margen del separador */
+}
+
+.mat-toolbar{
+  color: white;
+  .example-icon{
+    color: white;
+  }
+}

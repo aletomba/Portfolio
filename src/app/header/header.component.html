@@ -1,0 +1,14 @@
+
+<div class="wrapper animate__animated animate__fadeInLeft">
+  <mat-toolbar class="barra">
+    <mat-icon><i class="uil uil-rocket"></i></mat-icon>
+    <span class="example-spacer"></span>
+    <div class="item" *ngFor="let item of links">
+      <a [href]="item.link" mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon class="example-icon" [innerHTML]="item.icon"></mat-icon>
+      </a>
+    </div>
+  </mat-toolbar>
+</div>
+
+
