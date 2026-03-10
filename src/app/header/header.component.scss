@@ -1,37 +1,42 @@
-
 .wrapper {
-
-  box-shadow: 0px 2px 4px ;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.example-spacer {
+.spacer {
   flex: 1 1 auto;
 }
 
-.barra{
-  background-color:black ;
+.barra {
+  background-color: black;
 }
 
-.item {
-  display: flex;
-  bottom: auto;
-  transition: all ease 200;
-  .example-icon{
-    cursor: pointer;
-    color: black;
-    &:hover{
-      opacity: .8;
-    }
-  }
-}
-
-.item hr {
-  margin: 8px 0; /* Ajustamos el margen del separador */
-}
-
-.mat-toolbar{
+.rocket-icon {
+  font-size: 1.5rem;
   color: white;
-  .example-icon{
-    color: white;
+  margin-right: 0.4rem;
+}
+
+.brand-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: white;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  transition: opacity 200ms ease;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.75;
   }
+}
+
+.mat-toolbar {
+  color: white;
 }

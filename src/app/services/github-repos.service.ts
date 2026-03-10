@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { GithubRepo } from '../models/github-repo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,13 @@ import { map } from 'rxjs';
 export class GithubReposService {
   private readonly url = 'https://api.github.com/users/aletomba/repos';
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) {}
 
-  loadRepos = ()=> this.httpClient.get(this.url);
+  loadRepos(): Observable<GithubRepo[]> {
+    return this.httpClient.get<GithubRepo[]>(this.url).pipe(
+      catchError(error => throwError(() => new Error(`Error al cargar repositorios: ${error.message}`)))
+    );
+  }
 }
 
 

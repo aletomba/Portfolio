@@ -2,36 +2,138 @@
   padding: 1rem;
   align-items: center;
   flex-direction: column;
-
 }
 
 .profile-info {
-  flex: 1; /* Permite que ocupe el espacio restante en la fila */
+  flex: 1;
 }
 
-.photo-presentation img {
-  max-width: 100%;
-  height: 15rem;
+.sub-title {
+  padding: 0.5rem 0;
 }
 
-.photo-presentation {
-  margin-top: 1rem;
-  text-align: center;
-  /* Ajusta el margen izquierdo según sea necesario */
+.description {
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
-.sub-title{
-  padding: .5rem 0;
+.skills-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+
+  li {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.85rem;
+  }
 }
 
-.mat-divider{
-  border-top-color: #f8f9fa;
+.section {
+  margin: 0.75rem 0;
+
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+
+    i {
+      margin-right: 0.3rem;
+    }
+  }
+
+  .section-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.4rem;
+
+    .item-main {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .item-sub {
+      font-size: 0.82rem;
+      opacity: 0.75;
+    }
+  }
 }
 
-.mat-toolbar{
-  background-color: black;
+.meta-info {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+
+  .label {
+    font-weight: 600;
+  }
 }
 
-.mat-icon{
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+
+  .photo-presentation {
+    flex-shrink: 0;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .profile-header-text {
+    .pre-title {
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0.1rem 0;
+    }
+
+    .sub-title {
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 0;
+      opacity: 0.85;
+    }
+  }
+}
+
+.mat-divider {
+  border-top-color: rgba(248, 249, 250, 0.3);
+  margin: 0.75rem 0;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  transition: opacity 200ms ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  i {
+    font-size: 1rem;
+  }
 }

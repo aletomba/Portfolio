@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LinkModel } from '../models/link.model';
 
 @Component({
   selector: 'app-header',
@@ -7,25 +8,22 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  links:Array<LinkModel> = [
+  readonly links: LinkModel[] = [
     {
-      link : 'https://www.linkedin.com/in/alejandro-tomba-a5405312a/',
-      icon : '<i class="uil uil-linkedin"></i>'
+      url: 'https://www.linkedin.com/in/alejandro-tomba-a5405312a/',
+      iconClass: 'uil uil-linkedin',
+      label: 'LinkedIn'
     },
     {
-      link : 'https://github.com/aletomba',
-      icon : '<i class="uil uil-github"></i>'
+      url: 'https://github.com/aletomba',
+      iconClass: 'uil uil-github',
+      label: 'GitHub'
     },
     {
-      link : 'mailto:tombaalejandro456gmail.com',
-      icon : '<i class="uil uil-mailbox"></i>'
+      url: 'mailto:tombaalejandro456@gmail.com',
+      iconClass: 'uil uil-mailbox',
+      label: 'Email'
     }
   ];
 
-
-}
-
-class LinkModel{
-  link : string = ''
-  icon :string =''
 }
