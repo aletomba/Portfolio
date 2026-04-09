@@ -40,3 +40,24 @@
 .mat-toolbar {
   color: white;
 }
+
+.theme-toggle {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 1.1rem;
+  margin-left: 0.5rem;
+  transition: background-color 200ms ease, border-color 200ms ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+}

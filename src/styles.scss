@@ -34,13 +34,28 @@ $Portfolio-theme: mat.define-light-theme((
 @include mat.all-component-themes($Portfolio-theme);
 
 /* You can add global styles to this file, and also import other style files */
-:root{
+:root {
   --color-1: #1698d2;
+  --color-surface: #1166a8;
+  --color-text: #ffffff;
+  --color-card-bg: rgba(226, 186, 184, 0.16);
+  --color-card-hover: rgba(226, 186, 184, 0.28);
 }
 
-html, body { height: 100%;
-background-color: var(--color-1) ;
-font-family: 'Cabin',sans-serif;
-color: white;}
+.dark-mode {
+  --color-1: #0d1117;
+  --color-surface: #161b22;
+  --color-text: #e6edf3;
+  --color-card-bg: rgba(255, 255, 255, 0.05);
+  --color-card-hover: rgba(255, 255, 255, 0.1);
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--color-1);
+  font-family: 'Cabin', sans-serif;
+  color: var(--color-text);
+  transition: background-color 300ms ease, color 300ms ease;
+}
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

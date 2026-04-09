@@ -3,6 +3,9 @@
     <i class="uil uil-rocket rocket-icon"></i>
     <span class="brand-name">Alejandro Tomba</span>
     <span class="spacer"></span>
+    <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Activar modo claro' : 'Activar modo oscuro'">
+      <i [class]="isDarkMode ? 'uil uil-sun' : 'uil uil-moon'"></i>
+    </button>
     <a
       *ngFor="let item of links"
       [href]="item.url"
