@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { LinkModel } from '../models/link.model';
 
 @Component({
   selector: 'app-header',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  @Input() isDarkMode = false;
+  @Output() darkModeToggle = new EventEmitter<void>();
 
   readonly links: LinkModel[] = [
     {
@@ -25,5 +28,4 @@ export class HeaderComponent {
       label: 'Email'
     }
   ];
-
 }
