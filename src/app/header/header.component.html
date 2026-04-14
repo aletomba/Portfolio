@@ -3,6 +3,9 @@
     <i class="uil uil-rocket rocket-icon"></i>
     <span class="brand-name">Alejandro Tomba</span>
     <span class="spacer"></span>
+    <button mat-icon-button (click)="darkModeToggle.emit()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+      <mat-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
+    </button>
     <a
       *ngFor="let item of links"
       [href]="item.url"

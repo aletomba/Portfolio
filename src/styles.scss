@@ -1,46 +1,59 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$Portfolio-primary: mat.define-palette(mat.$indigo-palette);
-$Portfolio-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$Portfolio-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$Portfolio-theme: mat.define-light-theme((
-  color: (
-    primary: $Portfolio-primary,
-    accent: $Portfolio-accent,
-    warn: $Portfolio-warn,
-  )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($Portfolio-theme);
-
-/* You can add global styles to this file, and also import other style files */
-:root{
+:root {
   --color-1: #1698d2;
+  --color-bg: #1698d2;
+  --color-text: white;
+  --color-card-bg: white;
+  --color-card-text: #333;
+  --color-header-bg: white;
+  --color-header-text: rgba(0, 0, 0, 0.87);
+  --color-border: rgba(0, 0, 0, 0.12);
 }
 
-html, body { height: 100%;
-background-color: var(--color-1) ;
-font-family: 'Cabin',sans-serif;
-color: white;}
+[data-theme="dark"] {
+  --color-1: #0d47a1;
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-card-bg: #1e1e1e;
+  --color-card-text: #e0e0e0;
+  --color-header-bg: #1e1e1e;
+  --color-header-text: #e0e0e0;
+  --color-border: rgba(255, 255, 255, 0.12);
+}
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html {
+  color-scheme: light dark;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  font-family: 'Cabin', sans-serif;
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-toolbar {
+  background-color: var(--color-header-bg) !important;
+  color: var(--color-header-text) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mat-mdc-card {
+  background-color: var(--color-card-bg) !important;
+  color: var(--color-card-text) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mat-mdc-icon-button {
+  color: var(--color-header-text) !important;
+}

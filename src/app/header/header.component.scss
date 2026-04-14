@@ -7,12 +7,13 @@
 }
 
 .barra {
-  background-color: black;
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
 }
 
 .rocket-icon {
   font-size: 1.5rem;
-  color: white;
+  color: var(--color-1);
   margin-right: 0.4rem;
 }
 
@@ -20,14 +21,14 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: white;
+  color: var(--color-header-text);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-header-text);
   font-size: 1.4rem;
   transition: opacity 200ms ease;
   text-decoration: none;
@@ -38,5 +39,5 @@
 }
 
 .mat-toolbar {
-  color: white;
+  color: var(--color-header-text);
 }
