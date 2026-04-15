@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ProfileModel } from '../models/profile.model';
 
 @Component({
   selector: 'app-side-bar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })
