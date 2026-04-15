@@ -58,3 +58,31 @@ body {
 .mat-mdc-icon-button {
   color: var(--color-header-text) !important;
 }
+
+.mat-divider {
+  border-top-color: var(--color-border) !important;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-1), transparent);
+    animation: shimmer-line 3s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer-line {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(0.5);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleX(1);
+  }
+}
