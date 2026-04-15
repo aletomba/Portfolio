@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GithubRepo } from '../models/github-repo.model';
 import { GithubReposService } from '../services/github-repos.service';
 
 @Component({
   selector: 'app-work',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './work.component.html',
   styleUrls: ['./work.component.scss']
 })
