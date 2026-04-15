@@ -2,11 +2,31 @@
   padding: 1rem;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 .profile-info {
   flex: 1;
   color: var(--color-card-text);
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+
+  &.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.profile-header {
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+
+  &.collapsed {
+    opacity: 0.5;
+  }
 }
 
 .sub-title {
@@ -146,5 +166,37 @@
 
   i {
     font-size: 1rem;
+  }
+}
+
+.collapse-toggle {
+  display: none;
+  background: var(--color-1);
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  color: white;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms ease, transform 200ms ease;
+
+  &:hover {
+    background-color: var(--color-bg);
+    transform: scale(1.1);
+  }
+
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .collapse-toggle.mobile-only {
+    display: flex;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }
