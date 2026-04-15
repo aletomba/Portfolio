@@ -43,4 +43,30 @@ export class WorkComponent implements OnInit, OnDestroy {
     return repo.id;
   }
 
+  getLanguageColor(language: string): string {
+    const colors: Record<string, string> = {
+      'JavaScript': '#f1e05a',
+      'TypeScript': '#3178c6',
+      'HTML': '#e34c26',
+      'CSS': '#563d7c',
+      'Python': '#3572A5',
+      'Java': '#b07219',
+      'C#': '#178600',
+      'C++': '#f34b7d',
+      'C': '#555555',
+      'PHP': '#4F5D95',
+      'Ruby': '#701516',
+      'Go': '#00ADD8',
+      'Rust': '#dea584',
+      'Swift': '#F05138',
+      'Kotlin': '#A97BFF',
+      'Dart': '#00B4AB',
+      'Vue': '#41b883',
+      'Angular': '#dd0031',
+      'Shell': '#89e051',
+      'SCSS': '#c6538c',
+    };
+    return colors[language] || '#8b8b8b';
+  }
+
 }

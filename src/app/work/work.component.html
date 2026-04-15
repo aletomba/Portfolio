@@ -33,7 +33,10 @@
         <div class="title">{{ item.name }}</div>
         <div class="descripcion">{{ item.description }}</div>
         <div class="date">{{ item.created_at | date }}</div>
-        <div class="language" *ngIf="item.language">{{ item.language }}</div>
+        <span class="language-badge" *ngIf="item.language" [style.--lang-color]="getLanguageColor(item.language)">
+          <span class="language-dot"></span>
+          {{ item.language }}
+        </span>
       </div>
       <div class="right d-flex">
         <div class="top">
