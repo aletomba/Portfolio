@@ -87,6 +87,23 @@
       }
     }
 
+    .language-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--color-card-text);
+      opacity: 0.85;
+      margin-top: 0.25rem;
+
+      .language-dot {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background-color: var(--lang-color, #8b8b8b);
+      }
+    }
+
     .right {
       width: 20%;
       flex-direction: column;
