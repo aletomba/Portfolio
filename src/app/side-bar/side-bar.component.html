@@ -1,5 +1,8 @@
 <div class="wrapper">
-  <div class="profile-header">
+  <button class="collapse-toggle mobile-only" (click)="toggleCollapse()" [attr.aria-label]="isCollapsed() ? 'Expandir perfil' : 'Colapsar perfil'">
+    <i [class]="isCollapsed() ? 'uil uil-plus' : 'uil uil-minus'"></i>
+  </button>
+  <div class="profile-header" [class.collapsed]="isCollapsed()">
     <div class="photo-presentation">
       <img [src]="profile.photoUrl" [alt]="profile.photoAlt">
     </div>
@@ -10,7 +13,7 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="profile-info">
+  <div class="profile-info" [class.collapsed]="isCollapsed()">
     <p class="description">{{ profile.description }}</p>
     <ul class="skills-list">
       <li *ngFor="let skill of profile.skills">{{ skill }}</li>

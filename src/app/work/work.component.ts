@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GithubRepo } from '../models/github-repo.model';
 import { GithubReposService } from '../services/github-repos.service';
 
 @Component({
   selector: 'app-work',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './work.component.html',
   styleUrls: ['./work.component.scss']
 })
@@ -16,7 +17,10 @@ export class WorkComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private readonly gitHubService: GithubReposService) {}
+  constructor(
+    private readonly gitHubService: GithubReposService,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.gitHubService.loadRepos().pipe(
@@ -25,10 +29,12 @@ export class WorkComponent implements OnInit, OnDestroy {
       next: (repos) => {
         this.repos = repos;
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
       error: (err: Error) => {
         this.errorMessage = err.message;
         this.isLoading = false;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -40,6 +46,32 @@ export class WorkComponent implements OnInit, OnDestroy {
 
   trackByRepoId(_index: number, repo: GithubRepo): number {
     return repo.id;
+  }
+
+  getLanguageColor(language: string): string {
+    const colors: Record<string, string> = {
+      'JavaScript': '#f1e05a',
+      'TypeScript': '#3178c6',
+      'HTML': '#e34c26',
+      'CSS': '#563d7c',
+      'Python': '#3572A5',
+      'Java': '#b07219',
+      'C#': '#178600',
+      'C++': '#f34b7d',
+      'C': '#555555',
+      'PHP': '#4F5D95',
+      'Ruby': '#701516',
+      'Go': '#00ADD8',
+      'Rust': '#dea584',
+      'Swift': '#F05138',
+      'Kotlin': '#A97BFF',
+      'Dart': '#00B4AB',
+      'Vue': '#41b883',
+      'Angular': '#dd0031',
+      'Shell': '#89e051',
+      'SCSS': '#c6538c',
+    };
+    return colors[language] || '#8b8b8b';
   }
 
 }

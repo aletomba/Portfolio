@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ProfileModel } from '../models/profile.model';
 
 @Component({
   selector: 'app-side-bar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent {
+
+  isCollapsed = signal(false);
+
+  toggleCollapse(): void {
+    this.isCollapsed.update(v => !v);
+  }
 
   readonly profile: ProfileModel = {
     greeting: 'Hola, mi nombre es',
