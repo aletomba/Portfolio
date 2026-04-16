@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GithubRepo } from '../models/github-repo.model';
 import { GithubReposService } from '../services/github-repos.service';
@@ -17,7 +17,10 @@ export class WorkComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private readonly gitHubService: GithubReposService) {}
+  constructor(
+    private readonly gitHubService: GithubReposService,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.gitHubService.loadRepos().pipe(
@@ -26,10 +29,12 @@ export class WorkComponent implements OnInit, OnDestroy {
       next: (repos) => {
         this.repos = repos;
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
       error: (err: Error) => {
         this.errorMessage = err.message;
         this.isLoading = false;
+        this.cdr.markForCheck();
       }
     });
   }
