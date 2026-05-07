@@ -1,3 +1,8 @@
+export interface SkillCategoryModel {
+  name: string;
+  items: string[];
+}
+
 export interface EducationModel {
   institution: string;
   degree: string;
@@ -15,6 +20,7 @@ export interface ContactModel {
   url: string;
   label: string;
   iconClass: string;
+  cvVisible?: boolean;
 }
 
 export interface ProfileModel {
@@ -22,9 +28,10 @@ export interface ProfileModel {
   name: string;
   title: string;
   description: string;
-  skills: string[];
+  skillCategories: SkillCategoryModel[];
   education: EducationModel[];
   experience: ExperienceModel[];
+  courses?: EducationModel[];
   availability: string;
   languages: string[];
   contact: ContactModel[];

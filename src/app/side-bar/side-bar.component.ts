@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { ProfileModel } from '../models/profile.model';
+import { ProfileModel, SkillCategoryModel } from '../models/profile.model';
+import { CvPdfService } from '../services/cv-pdf.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,9 +11,18 @@ import { ProfileModel } from '../models/profile.model';
 export class SideBarComponent {
 
   isCollapsed = signal(false);
+  isDownloading = signal(false);
+
+  constructor(private cvPdf: CvPdfService) {}
 
   toggleCollapse(): void {
     this.isCollapsed.update(v => !v);
+  }
+
+  async downloadCV(): Promise<void> {
+    this.isDownloading.set(true);
+    await this.cvPdf.generate(this.profile);
+    this.isDownloading.set(false);
   }
 
   readonly profile: ProfileModel = {
@@ -20,7 +30,14 @@ export class SideBarComponent {
     name: 'Alejandro Tomba',
     title: 'Técnico en Programación',
     description: 'Desarrollador Full-Stack .NET con sólidos conocimientos en .NET Core, C#, Entity Framework, SQL Server, MySQL, AutoMapper y FluentValidation. Diseño soluciones escalables y colaboro en equipos Agile.',
-    skills: ['.NET Core', 'C#', 'Entity Framework', 'SQL Server', 'MySQL', 'APIs REST', 'OpenAI API', 'Integración de IA'],
+    skillCategories: [
+      { name: 'Lenguajes', items: ['C#', 'TypeScript'] },
+      { name: 'Frameworks y Web', items: ['Angular', '.NET Core', 'ASP.NET Identity', 'Entity Framework', 'MVC', 'Razor Pages', 'Web API'] },
+      { name: 'Seguridad', items: ['JWT', 'Autorización'] },
+      { name: 'Bases de Datos', items: ['SQL Server', 'MySQL', 'PostgreSQL'] },
+      { name: 'IA e Integración', items: ['OpenAI API', 'Integración de IA', 'APIs REST'] },
+      { name: 'Herramientas', items: ['GitHub', 'Insomnia', 'UML'] },
+    ],
     education: [
       {
         institution: 'UTN FRCU',
@@ -39,12 +56,22 @@ export class SideBarComponent {
         area: 'OpenAI API · .NET Core · Automatización inteligente',
       }
     ],
+    courses: [
+      {
+        institution: 'Udemy',
+        degree: 'API Mastery: C# en el Backend desde la práctica',
+      },
+      {
+        institution: 'Taller',
+        degree: 'Generación de competencias en desarrollo de software con GeneXus orientado a Bantotal',
+      }
+    ],
     availability: 'Full-time / Part-time',
     languages: ['Español (nativo)', 'Inglés (intermedio)'],
     contact: [
       { url: 'mailto:tombaalejandro456@gmail.com', label: 'tombaalejandro456@gmail.com', iconClass: 'uil uil-envelope' },
       { url: 'https://www.linkedin.com/in/alejandro-tomba-a5405312a/', label: 'LinkedIn', iconClass: 'uil uil-linkedin' },
-      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github' }
+      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github', cvVisible: false }
     ],
     photoUrl: 'assets/img/Diseño sin título.jpg',
     photoAlt: 'Foto de perfil de Alejandro Tomba'
