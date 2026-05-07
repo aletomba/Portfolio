@@ -40,19 +40,46 @@
   color: var(--color-card-text);
 }
 
+.skill-categories {
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.skill-category {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.skill-category-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+  color: var(--color-card-text);
+  min-width: 7rem;
+  padding-top: 0.25rem;
+  flex-shrink: 0;
+}
+
 .skills-list {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
+  gap: 0.35rem;
+  margin: 0;
+  flex: 1;
 
   li {
     background-color: var(--color-1);
     border-radius: 4px;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.85rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
     color: white;
   }
 }
@@ -198,5 +225,73 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+  }
+}
+
+.print-cv-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.45rem 0.75rem;
+  background: transparent;
+  border: 1px solid var(--color-1);
+  border-radius: 4px;
+  color: var(--color-1);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+
+  &:hover {
+    background-color: var(--color-1);
+    color: white;
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+@media print {
+  .cv-hide {
+    display: none !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .collapse-toggle {
+    display: none !important;
+  }
+
+  .profile-info {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+
+  .profile-header {
+    opacity: 1 !important;
+  }
+
+  .wrapper {
+    padding: 0.5rem;
+  }
+
+  .profile-header .photo-presentation img {
+    border: 1px solid #ccc;
+  }
+
+  .skills-list li {
+    background-color: #e0e0e0 !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .contact-link {
+    color: #000 !important;
   }
 }

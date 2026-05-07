@@ -13,11 +13,20 @@
     </div>
   </div>
   <mat-divider></mat-divider>
+  <button class="print-cv-btn screen-only" (click)="downloadCV()" [disabled]="isDownloading()">
+    <i class="uil uil-file-download-alt"></i>
+    {{ isDownloading() ? 'Generando PDF...' : 'Descargar CV' }}
+  </button>
   <div class="profile-info" [class.collapsed]="isCollapsed()">
     <p class="description">{{ profile.description }}</p>
-    <ul class="skills-list">
-      <li *ngFor="let skill of profile.skills">{{ skill }}</li>
-    </ul>
+    <div class="skill-categories">
+      <div *ngFor="let cat of profile.skillCategories" class="skill-category">
+        <span class="skill-category-name">{{ cat.name }}</span>
+        <ul class="skills-list">
+          <li *ngFor="let item of cat.items">{{ item }}</li>
+        </ul>
+      </div>
+    </div>
     <div class="section">
       <p class="section-title"><i class="uil uil-graduation-cap"></i> Educación</p>
       <div *ngFor="let edu of profile.education" class="section-item">
@@ -35,6 +44,14 @@
       </div>
     </div>
 
+    <div class="section" *ngIf="profile.courses?.length">
+      <p class="section-title"><i class="uil uil-medal"></i> Cursos y Certificaciones</p>
+      <div *ngFor="let course of profile.courses" class="section-item">
+        <span class="item-main">{{ course.degree }}</span>
+        <span class="item-sub">{{ course.institution }}<ng-container *ngIf="course.year"> · {{ course.year }}</ng-container></span>
+      </div>
+    </div>
+
     <p class="meta-info"><span class="label">Disponibilidad:</span> {{ profile.availability }}</p>
     <p class="meta-info">
       <span class="label">Idiomas:</span>
@@ -44,7 +61,7 @@
     </p>
     <div class="section">
       <p class="section-title"><i class="uil uil-phone"></i> Contacto</p>
-      <div *ngFor="let c of profile.contact" class="section-item">
+      <div *ngFor="let c of profile.contact" class="section-item" [class.cv-hide]="c.cvVisible === false">
         <a [href]="c.url" class="contact-link" target="_blank" rel="noopener noreferrer">
           <i [class]="c.iconClass"></i>
           <span>{{ c.label }}</span>

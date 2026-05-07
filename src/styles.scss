@@ -86,3 +86,37 @@ body {
     transform: scaleX(1);
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 12mm;
+  }
+
+  app-header,
+  app-work {
+    display: none !important;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  app-root {
+    display: block !important;
+  }
+
+  .d-flex {
+    display: block !important;
+  }
+
+  app-side-bar {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    background-color: white !important;
+    color: black !important;
+  }
+}
