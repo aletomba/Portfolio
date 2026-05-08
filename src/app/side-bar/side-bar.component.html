@@ -13,7 +13,7 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <button class="print-cv-btn screen-only" (click)="downloadCV()" [disabled]="isDownloading()">
+  <button *ngIf="enableCvDownload" class="print-cv-btn screen-only" (click)="downloadCV()" [disabled]="isDownloading()">
     <i class="uil uil-file-download-alt"></i>
     {{ isDownloading() ? profile.labels.generatingPDF : profile.labels.downloadCV }}
   </button>
