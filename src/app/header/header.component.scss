@@ -38,6 +38,21 @@
   }
 }
 
+.lang-btn {
+  color: var(--color-header-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  min-width: auto;
+  padding: 0 0.5rem;
+  opacity: 0.8;
+  transition: opacity 200ms ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .mat-toolbar {
   color: var(--color-header-text);
 }

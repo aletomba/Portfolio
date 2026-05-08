@@ -1,6 +1,11 @@
 
-<app-header [isDarkMode]="themeService.isDarkMode" (darkModeToggle)="toggleDarkMode()"></app-header>
+<app-header
+  [isDarkMode]="themeService.isDarkMode"
+  [isEnglish]="languageService.isEnglish"
+  (darkModeToggle)="toggleDarkMode()"
+  (langToggle)="toggleLanguage()">
+</app-header>
 <div class="d-flex flex-wrap">
-  <app-side-bar class="col-12 col-sm-12 col-md-6 col-lg-4"></app-side-bar>
-  <app-work class="col-12 col-sm-12 col-md-6 col-lg-8"></app-work>
+  <app-side-bar class="col-12 col-sm-12 col-md-6 col-lg-4" [isEnglish]="languageService.isEnglish"></app-side-bar>
+  <app-work class="col-12 col-sm-12 col-md-6 col-lg-8" [isEnglish]="languageService.isEnglish"></app-work>
 </div>

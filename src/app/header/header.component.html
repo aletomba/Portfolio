@@ -6,6 +6,9 @@
     <button mat-icon-button (click)="darkModeToggle.emit()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
       <mat-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
     </button>
+    <button mat-button class="lang-btn" (click)="langToggle.emit()" [attr.aria-label]="isEnglish ? 'Cambiar a español' : 'Switch to English'">
+      {{ isEnglish ? 'ES' : 'EN' }}
+    </button>
     <a
       *ngFor="let item of links"
       [href]="item.url"

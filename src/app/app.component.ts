@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from './services/theme.service';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,16 @@ import { ThemeService } from './services/theme.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public themeService: ThemeService) {}
+  constructor(
+    public themeService: ThemeService,
+    public languageService: LanguageService,
+  ) {}
 
   toggleDarkMode(): void {
     this.themeService.toggle();
+  }
+
+  toggleLanguage(): void {
+    this.languageService.toggle();
   }
 }

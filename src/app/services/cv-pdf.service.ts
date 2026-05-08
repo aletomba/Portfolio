@@ -60,7 +60,7 @@ export class CvPdfService {
     y += descLines.length * 4.5 + 7;
 
     // ── Skills ───────────────────────────────────────────────────────────────
-    y = this.sectionTitle(doc, 'HABILIDADES TÉCNICAS', y);
+    y = this.sectionTitle(doc, profile.labels.skillsTitle.toUpperCase(), y);
     const labelColW = 38;
 
     for (const cat of profile.skillCategories) {
@@ -94,7 +94,7 @@ export class CvPdfService {
 
     // ── Education ────────────────────────────────────────────────────────────
     if (profile.education.length) {
-      y = this.sectionTitle(doc, 'EDUCACIÓN', y);
+      y = this.sectionTitle(doc, profile.labels.educationTitle.toUpperCase(), y);
       for (const edu of profile.education) {
         doc.setTextColor(this.dark);
         doc.setFont('helvetica', 'bold');
@@ -110,7 +110,7 @@ export class CvPdfService {
 
     // ── Experience ───────────────────────────────────────────────────────────
     if (profile.experience.length) {
-      y = this.sectionTitle(doc, 'EXPERIENCIA', y);
+      y = this.sectionTitle(doc, profile.labels.experienceTitle.toUpperCase(), y);
       for (const exp of profile.experience) {
         doc.setTextColor(this.dark);
         doc.setFont('helvetica', 'bold');
@@ -130,7 +130,7 @@ export class CvPdfService {
 
     // ── Courses ──────────────────────────────────────────────────────────────
     if (profile.courses?.length) {
-      y = this.sectionTitle(doc, 'CURSOS Y CERTIFICACIONES', y);
+      y = this.sectionTitle(doc, profile.labels.coursesTitle.toUpperCase(), y);
       for (const course of profile.courses) {
         doc.setTextColor(this.dark);
         doc.setFont('helvetica', 'bold');
@@ -146,20 +146,22 @@ export class CvPdfService {
     }
 
     // ── Extra info ───────────────────────────────────────────────────────────
-    y = this.sectionTitle(doc, 'INFORMACIÓN ADICIONAL', y);
+    y = this.sectionTitle(doc, profile.labels.additionalInfoTitle.toUpperCase(), y);
     doc.setFontSize(9);
 
+    const langLabel = profile.labels.languagesLabel + ': ';
     doc.setTextColor(this.dark);
     doc.setFont('helvetica', 'bold');
-    doc.text('Idiomas: ', this.margin, y);
+    doc.text(langLabel, this.margin, y);
     doc.setFont('helvetica', 'normal');
-    doc.text(profile.languages.join(', '), this.margin + doc.getTextWidth('Idiomas: '), y);
+    doc.text(profile.languages.join(', '), this.margin + doc.getTextWidth(langLabel), y);
     y += 5;
 
+    const availLabel = profile.labels.availabilityLabel + ': ';
     doc.setFont('helvetica', 'bold');
-    doc.text('Disponibilidad: ', this.margin, y);
+    doc.text(availLabel, this.margin, y);
     doc.setFont('helvetica', 'normal');
-    doc.text(profile.availability, this.margin + doc.getTextWidth('Disponibilidad: '), y);
+    doc.text(profile.availability, this.margin + doc.getTextWidth(availLabel), y);
 
     doc.save('CV-Alejandro-Tomba.pdf');
   }

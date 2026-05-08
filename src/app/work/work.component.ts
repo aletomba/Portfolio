@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GithubRepo } from '../models/github-repo.model';
 import { GithubReposService } from '../services/github-repos.service';
@@ -10,6 +10,8 @@ import { GithubReposService } from '../services/github-repos.service';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit, OnDestroy {
+
+  @Input() isEnglish = false;
 
   repos: GithubRepo[] = [];
   isLoading = true;
@@ -46,6 +48,18 @@ export class WorkComponent implements OnInit, OnDestroy {
 
   trackByRepoId(_index: number, repo: GithubRepo): number {
     return repo.id;
+  }
+
+  get labels() {
+    return this.isEnglish ? {
+      title: 'GitHub Repositories',
+      viewRepo: 'View repository on GitHub',
+      errorMessage: 'Failed to load repositories',
+    } : {
+      title: 'Repositorios en GitHub',
+      viewRepo: 'Ver repositorio en GitHub',
+      errorMessage: 'Error al cargar repositorios',
+    };
   }
 
   getLanguageColor(language: string): string {

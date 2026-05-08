@@ -3,6 +3,21 @@ export interface SkillCategoryModel {
   items: string[];
 }
 
+export interface ProfileLabels {
+  skillsTitle: string;
+  educationTitle: string;
+  experienceTitle: string;
+  coursesTitle: string;
+  contactTitle: string;
+  additionalInfoTitle: string;
+  availabilityLabel: string;
+  languagesLabel: string;
+  downloadCV: string;
+  generatingPDF: string;
+  expand: string;
+  collapse: string;
+}
+
 export interface EducationModel {
   institution: string;
   degree: string;
@@ -37,4 +52,5 @@ export interface ProfileModel {
   contact: ContactModel[];
   photoUrl: string;
   photoAlt: string;
+  labels: ProfileLabels;
 }
