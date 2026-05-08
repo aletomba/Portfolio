@@ -1,7 +1,7 @@
 <div class="wrapper d-flex flex-wrap">
 
   <div class="work-header col-12">
-    <h2 class="work-title"><i class="uil uil-github"></i> Repositorios en GitHub</h2>
+    <h2 class="work-title"><i class="uil uil-github"></i> {{ labels.title }}</h2>
     <mat-divider></mat-divider>
   </div>
 
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <p *ngIf="errorMessage" class="status-message error-message">{{ errorMessage }}</p>
+  <p *ngIf="errorMessage" class="status-message error-message">{{ labels.errorMessage }}</p>
 
   <div
     class="block-repo col-12 col-sm-12 col-md-12 col-lg-4"
@@ -40,7 +40,7 @@
       </div>
       <div class="right d-flex">
         <div class="top">
-          <a [href]="item.html_url" target="_blank" rel="noopener noreferrer" aria-label="Ver repositorio en GitHub">
+          <a [href]="item.html_url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="labels.viewRepo">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" aria-hidden="true">
               <path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path>
             </svg>

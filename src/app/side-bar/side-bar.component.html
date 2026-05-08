@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <button class="collapse-toggle mobile-only" (click)="toggleCollapse()" [attr.aria-label]="isCollapsed() ? 'Expandir perfil' : 'Colapsar perfil'">
+  <button class="collapse-toggle mobile-only" (click)="toggleCollapse()" [attr.aria-label]="isCollapsed() ? profile.labels.expand : profile.labels.collapse">
     <i [class]="isCollapsed() ? 'uil uil-plus' : 'uil uil-minus'"></i>
   </button>
   <div class="profile-header" [class.collapsed]="isCollapsed()">
@@ -15,7 +15,7 @@
   <mat-divider></mat-divider>
   <button class="print-cv-btn screen-only" (click)="downloadCV()" [disabled]="isDownloading()">
     <i class="uil uil-file-download-alt"></i>
-    {{ isDownloading() ? 'Generando PDF...' : 'Descargar CV' }}
+    {{ isDownloading() ? profile.labels.generatingPDF : profile.labels.downloadCV }}
   </button>
   <div class="profile-info" [class.collapsed]="isCollapsed()">
     <p class="description">{{ profile.description }}</p>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="section">
-      <p class="section-title"><i class="uil uil-graduation-cap"></i> Educación</p>
+      <p class="section-title"><i class="uil uil-graduation-cap"></i> {{ profile.labels.educationTitle }}</p>
       <div *ngFor="let edu of profile.education" class="section-item">
         <span class="item-main">{{ edu.degree }}</span>
         <span class="item-sub">{{ edu.institution }}<ng-container *ngIf="edu.year"> · {{ edu.year }}</ng-container></span>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="section">
-      <p class="section-title"><i class="uil uil-briefcase-alt"></i> Experiencia</p>
+      <p class="section-title"><i class="uil uil-briefcase-alt"></i> {{ profile.labels.experienceTitle }}</p>
       <div *ngFor="let exp of profile.experience" class="section-item">
         <span class="item-main">{{ exp.role }}</span>
         <span class="item-sub">{{ exp.place }}<ng-container *ngIf="exp.area"> · {{ exp.area }}</ng-container></span>
@@ -45,22 +45,22 @@
     </div>
 
     <div class="section" *ngIf="profile.courses?.length">
-      <p class="section-title"><i class="uil uil-medal"></i> Cursos y Certificaciones</p>
+      <p class="section-title"><i class="uil uil-medal"></i> {{ profile.labels.coursesTitle }}</p>
       <div *ngFor="let course of profile.courses" class="section-item">
         <span class="item-main">{{ course.degree }}</span>
         <span class="item-sub">{{ course.institution }}<ng-container *ngIf="course.year"> · {{ course.year }}</ng-container></span>
       </div>
     </div>
 
-    <p class="meta-info"><span class="label">Disponibilidad:</span> {{ profile.availability }}</p>
+    <p class="meta-info"><span class="label">{{ profile.labels.availabilityLabel }}:</span> {{ profile.availability }}</p>
     <p class="meta-info">
-      <span class="label">Idiomas:</span>
+      <span class="label">{{ profile.labels.languagesLabel }}:</span>
       <span *ngFor="let lang of profile.languages; let last = last">
         {{ lang }}<ng-container *ngIf="!last">, </ng-container>
       </span>
     </p>
     <div class="section">
-      <p class="section-title"><i class="uil uil-phone"></i> Contacto</p>
+      <p class="section-title"><i class="uil uil-phone"></i> {{ profile.labels.contactTitle }}</p>
       <div *ngFor="let c of profile.contact" class="section-item" [class.cv-hide]="c.cvVisible === false">
         <a [href]="c.url" class="contact-link" target="_blank" rel="noopener noreferrer">
           <i [class]="c.iconClass"></i>

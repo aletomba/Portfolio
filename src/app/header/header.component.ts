@@ -9,7 +9,9 @@ import { LinkModel } from '../models/link.model';
 })
 export class HeaderComponent {
   @Input() isDarkMode = false;
+  @Input() isEnglish = false;
   @Output() darkModeToggle = new EventEmitter<void>();
+  @Output() langToggle = new EventEmitter<void>();
 
   readonly links: LinkModel[] = [
     {
