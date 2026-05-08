@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, signal } from '@angular/core';
 import { ProfileModel, SkillCategoryModel } from '../models/profile.model';
 import { CvPdfService } from '../services/cv-pdf.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,6 +15,7 @@ export class SideBarComponent {
 
   isCollapsed = signal(false);
   isDownloading = signal(false);
+  readonly enableCvDownload = environment.enableCvDownload;
 
   constructor(private cvPdf: CvPdfService) {}
 
@@ -23,8 +25,11 @@ export class SideBarComponent {
 
   async downloadCV(): Promise<void> {
     this.isDownloading.set(true);
-    await this.cvPdf.generate(this.profile);
-    this.isDownloading.set(false);
+    try {
+      await this.cvPdf.generate(this.profile);
+    } finally {
+      this.isDownloading.set(false);
+    }
   }
 
   get profile(): ProfileModel {
