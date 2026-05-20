@@ -42,12 +42,13 @@ export class CvPdfService {
     doc.setFontSize(11);
     doc.text(profile.title, this.margin, 26);
 
-    const visibleContacts = profile.contact.filter(c => c.cvVisible !== false);
-    if (visibleContacts.length) {
-      doc.setFontSize(8);
-      const contactLine = visibleContacts.map(c => c.label).join('   ·   ');
-      doc.text(contactLine, this.margin, 34);
-    }
+    const portfolioUrl = 'https://aletomba.github.io/Portfolio/';
+    const portfolioLabel = 'aletomba.github.io/Portfolio/';
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    const labelW = doc.getTextWidth(portfolioLabel);
+    doc.text(portfolioLabel, this.margin, 34);
+    doc.link(this.margin, 31, labelW, 4, { url: portfolioUrl });
 
     y = 48;
 
@@ -64,8 +65,6 @@ export class CvPdfService {
     const labelColW = 38;
 
     for (const cat of profile.skillCategories) {
-      const rowStartY = y;
-
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7.5);
       doc.setTextColor(this.muted);

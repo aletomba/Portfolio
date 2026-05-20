@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, OnDestroy
 import { Subject, takeUntil } from 'rxjs';
 import { GithubRepo } from '../models/github-repo.model';
 import { GithubReposService } from '../services/github-repos.service';
+import { PROJECT_METADATA, ProjectMeta, ProjectType } from '../data/project-metadata';
 
 @Component({
   selector: 'app-work',
@@ -11,11 +12,22 @@ import { GithubReposService } from '../services/github-repos.service';
 })
 export class WorkComponent implements OnInit, OnDestroy {
 
-  @Input() isEnglish = false;
+  @Input() set isEnglish(value: boolean) {
+    this._isEnglish = value;
+    this.labels = this.buildLabels();
+  }
+  get isEnglish(): boolean { return this._isEnglish; }
+
+  private _isEnglish = false;
 
   repos: GithubRepo[] = [];
   isLoading = true;
-  errorMessage: string | null = null;
+  hasError = false;
+  selectedLanguage: string | null = null;
+
+  allLanguages: string[] = [];
+  filteredRepos: GithubRepo[] = [];
+  labels = this.buildLabels();
 
   private readonly destroy$ = new Subject<void>();
 
@@ -30,11 +42,17 @@ export class WorkComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (repos) => {
         this.repos = repos;
+        this.hasError = false;
+        if (this.selectedLanguage && !repos.some(r => r.language === this.selectedLanguage)) {
+          this.selectedLanguage = null;
+        }
+        this.allLanguages = this.computeAllLanguages();
+        this.filteredRepos = this.computeFilteredRepos();
         this.isLoading = false;
         this.cdr.markForCheck();
       },
-      error: (err: Error) => {
-        this.errorMessage = err.message;
+      error: (_err: Error) => {
+        this.hasError = true;
         this.isLoading = false;
         this.cdr.markForCheck();
       }
@@ -50,16 +68,61 @@ export class WorkComponent implements OnInit, OnDestroy {
     return repo.id;
   }
 
-  get labels() {
-    return this.isEnglish ? {
+  trackByLang(_index: number, lang: string): string {
+    return lang;
+  }
+
+  getMeta(repoName: string): ProjectMeta | undefined {
+    return PROJECT_METADATA[repoName];
+  }
+
+  getPreviewImage(repoName: string): string {
+    const meta = PROJECT_METADATA[repoName];
+    if (meta?.previewImage) return meta.previewImage;
+    return `https://opengraph.githubassets.com/1/aletomba/${repoName}`;
+  }
+
+  getTypeLabel(type: ProjectType | undefined): string {
+    if (!type) return '';
+    const map: Record<ProjectType, string> = {
+      frontend: 'Frontend',
+      backend: 'Backend',
+      fullstack: 'Full-Stack',
+      desktop: 'Desktop',
+    };
+    return map[type];
+  }
+
+  private computeAllLanguages(): string[] {
+    const langs = this.repos
+      .map(r => r.language)
+      .filter((l): l is string => l != null);
+    return [...new Set(langs)].sort();
+  }
+
+  private computeFilteredRepos(): GithubRepo[] {
+    if (!this.selectedLanguage) return this.repos;
+    return this.repos.filter(r => r.language === this.selectedLanguage);
+  }
+
+  private buildLabels() {
+    return this._isEnglish ? {
       title: 'GitHub Repositories',
       viewRepo: 'View repository on GitHub',
       errorMessage: 'Failed to load repositories',
+      filterAll: 'All',
     } : {
       title: 'Repositorios en GitHub',
       viewRepo: 'Ver repositorio en GitHub',
       errorMessage: 'Error al cargar repositorios',
+      filterAll: 'Todos',
     };
+  }
+
+  selectLanguage(lang: string | null): void {
+    this.selectedLanguage = lang;
+    this.filteredRepos = this.computeFilteredRepos();
+    this.cdr.markForCheck();
   }
 
   getLanguageColor(language: string): string {

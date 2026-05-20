@@ -4,7 +4,7 @@
   </button>
   <div class="profile-header" [class.collapsed]="isCollapsed()">
     <div class="photo-presentation">
-      <img [src]="profile.photoUrl" [alt]="profile.photoAlt">
+      <img [src]="profile.photoUrl" [alt]="profile.photoAlt" loading="lazy">
     </div>
     <div class="profile-header-text">
       <div class="pre-title">{{ profile.greeting }}</div>
@@ -17,6 +17,10 @@
     <i class="uil uil-file-download-alt"></i>
     {{ isDownloading() ? profile.labels.generatingPDF : profile.labels.downloadCV }}
   </button>
+  <a *ngIf="primaryContactUrl" [href]="primaryContactUrl" class="contact-cta-btn screen-only" target="_blank" rel="noopener noreferrer">
+    <i class="uil uil-envelope"></i>
+    {{ profile.labels.contactCta }}
+  </a>
   <div class="profile-info" [class.collapsed]="isCollapsed()">
     <p class="description">{{ profile.description }}</p>
     <div class="skill-categories">
@@ -70,4 +74,3 @@
     </div>
   </div>
 </div>
-
