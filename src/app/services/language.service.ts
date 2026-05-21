@@ -11,7 +11,7 @@ export class LanguageService {
     this.isBrowser = typeof doc.defaultView !== 'undefined' && doc.defaultView !== null;
 
     if (this.isBrowser) {
-      const stored = doc.defaultView!.localStorage.getItem('lang');
+      const stored = this.getStoredLang();
       if (stored) {
         this._isEnglish = stored === 'en';
       } else {
@@ -29,10 +29,22 @@ export class LanguageService {
 
   toggle(): void {
     this._isEnglish = !this._isEnglish;
-    if (this.isBrowser) {
-      this.doc.defaultView!.localStorage.setItem('lang', this._isEnglish ? 'en' : 'es');
-    }
+    this.setStoredLang(this._isEnglish ? 'en' : 'es');
     this.applyLang();
+  }
+
+  private getStoredLang(): string | null {
+    try {
+      return this.doc.defaultView!.localStorage.getItem('lang');
+    } catch {
+      return null;
+    }
+  }
+
+  private setStoredLang(lang: string): void {
+    try {
+      this.doc.defaultView!.localStorage.setItem('lang', lang);
+    } catch { /* storage unavailable — silently ignore */ }
   }
 
   private applyLang(): void {
