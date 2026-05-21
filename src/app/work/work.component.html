@@ -41,45 +41,75 @@
   <div
     class="block-repo col-12 col-sm-12 col-md-12 col-lg-4"
     *ngFor="let item of filteredRepos; trackBy: trackByRepoId">
-    <div class="block-repo-in">
-      <div class="card-preview">
-        <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
-        <div class="card-overlay" *ngIf="getMeta(item.name)?.demoUrl">
-          <a [href]="getMeta(item.name)?.demoUrl" target="_blank" rel="noopener noreferrer" class="demo-btn">
-            Demo <i class="uil uil-external-link-alt"></i>
-          </a>
+    <ng-container *ngIf="getMeta(item.name) as meta; else noMeta">
+      <div class="block-repo-in">
+        <div class="card-preview">
+          <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
+          <div class="card-overlay" *ngIf="meta.demoUrl">
+            <a [href]="meta.demoUrl" target="_blank" rel="noopener noreferrer" class="demo-btn">
+              Demo <i class="uil uil-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <div class="title">{{ item.name }}</div>
+            <a [href]="item.html_url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="labels.viewRepo" class="github-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path>
+              </svg>
+            </a>
+          </div>
+          <div class="descripcion">{{ item.description }}</div>
+          <div class="repo-meta d-flex">
+            <span class="language-badge" *ngIf="item.language" [style.--lang-color]="getLanguageColor(item.language)">
+              <span class="language-dot"></span>
+              {{ item.language }}
+            </span>
+            <span class="repo-stat" *ngIf="item.stargazers_count > 0">
+              <i class="uil uil-star"></i> {{ item.stargazers_count }}
+            </span>
+            <span class="repo-stat" *ngIf="item.forks_count > 0">
+              <i class="uil uil-code-branch"></i> {{ item.forks_count }}
+            </span>
+            <span class="project-type-badge" [attr.data-type]="meta.type">
+              {{ getTypeLabel(meta.type) }}
+            </span>
+          </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-title-row">
-          <div class="title">{{ item.name }}</div>
-          <a [href]="item.html_url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="labels.viewRepo" class="github-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" aria-hidden="true">
-              <path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path>
-            </svg>
-          </a>
+    </ng-container>
+
+    <ng-template #noMeta>
+      <div class="block-repo-in">
+        <div class="card-preview">
+          <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
         </div>
-        <div class="descripcion">{{ item.description }}</div>
-        <div class="repo-meta d-flex">
-          <span class="language-badge" *ngIf="item.language" [style.--lang-color]="getLanguageColor(item.language)">
-            <span class="language-dot"></span>
-            {{ item.language }}
-          </span>
-          <span class="repo-stat" *ngIf="item.stargazers_count > 0">
-            <i class="uil uil-star"></i> {{ item.stargazers_count }}
-          </span>
-          <span class="repo-stat" *ngIf="item.forks_count > 0">
-            <i class="uil uil-code-branch"></i> {{ item.forks_count }}
-          </span>
-          <span
-            class="project-type-badge"
-            *ngIf="getMeta(item.name)"
-            [attr.data-type]="getMeta(item.name)?.type">
-            {{ getTypeLabel(getMeta(item.name)?.type) }}
-          </span>
+        <div class="card-body">
+          <div class="card-title-row">
+            <div class="title">{{ item.name }}</div>
+            <a [href]="item.html_url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="labels.viewRepo" class="github-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path>
+              </svg>
+            </a>
+          </div>
+          <div class="descripcion">{{ item.description }}</div>
+          <div class="repo-meta d-flex">
+            <span class="language-badge" *ngIf="item.language" [style.--lang-color]="getLanguageColor(item.language)">
+              <span class="language-dot"></span>
+              {{ item.language }}
+            </span>
+            <span class="repo-stat" *ngIf="item.stargazers_count > 0">
+              <i class="uil uil-star"></i> {{ item.stargazers_count }}
+            </span>
+            <span class="repo-stat" *ngIf="item.forks_count > 0">
+              <i class="uil uil-code-branch"></i> {{ item.forks_count }}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   </div>
 
 </div>
