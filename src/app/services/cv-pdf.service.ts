@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import jsPDF from 'jspdf';
 import { ProfileModel } from '../models/profile.model';
 
@@ -12,7 +13,15 @@ export class CvPdfService {
   private readonly margin  = 15;
   private readonly contentW = 180; // 210 - 2*15
 
+  private readonly isBrowser: boolean;
+
+  constructor(@Inject(DOCUMENT) private readonly doc: Document) {
+    this.isBrowser = typeof this.doc.defaultView !== 'undefined' && this.doc.defaultView !== null;
+  }
+
   async generate(profile: ProfileModel): Promise<void> {
+    if (!this.isBrowser) return;
+
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     let y = 0;
 
@@ -166,11 +175,12 @@ export class CvPdfService {
   }
 
   private loadImageAsCircle(src: string, sizePx: number): Promise<string> {
+    const win = this.doc.defaultView!;
     return new Promise((resolve, reject) => {
-      const img = new Image();
+      const img = new win.Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
-        const canvas = document.createElement('canvas');
+        const canvas = this.doc.createElement('canvas');
         canvas.width = sizePx;
         canvas.height = sizePx;
         const ctx = canvas.getContext('2d')!;
