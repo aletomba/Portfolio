@@ -24,6 +24,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   isLoading = true;
   hasError = false;
   selectedLanguage: string | null = null;
+  lightboxSrc: string | null = null;
 
   allLanguages: string[] = [];
   filteredRepos: GithubRepo[] = [];
@@ -91,6 +92,16 @@ export class WorkComponent implements OnInit, OnDestroy {
       desktop: 'Desktop',
     };
     return map[type];
+  }
+
+  openLightbox(src: string): void {
+    this.lightboxSrc = src;
+    this.cdr.markForCheck();
+  }
+
+  closeLightbox(): void {
+    this.lightboxSrc = null;
+    this.cdr.markForCheck();
   }
 
   private computeAllLanguages(): string[] {

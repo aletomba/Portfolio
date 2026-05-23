@@ -43,9 +43,9 @@
     *ngFor="let item of filteredRepos; trackBy: trackByRepoId">
     <ng-container *ngIf="getMeta(item.name) as meta; else noMeta">
       <div class="block-repo-in">
-        <div class="card-preview">
+        <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name))" role="button" tabindex="0" aria-label="Zoom image">
           <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
-          <div class="card-overlay" *ngIf="meta.demoUrl">
+          <div class="card-overlay" *ngIf="meta.demoUrl" (click)="$event.stopPropagation()">
             <a [href]="meta.demoUrl" target="_blank" rel="noopener noreferrer" class="demo-btn">
               Demo <i class="uil uil-external-link-alt"></i>
             </a>
@@ -82,7 +82,7 @@
 
     <ng-template #noMeta>
       <div class="block-repo-in">
-        <div class="card-preview">
+        <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name))" role="button" tabindex="0" aria-label="Zoom image">
           <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
         </div>
         <div class="card-body">
@@ -111,5 +111,7 @@
       </div>
     </ng-template>
   </div>
+
+  <app-lightbox [src]="lightboxSrc" (closed)="closeLightbox()"></app-lightbox>
 
 </div>
