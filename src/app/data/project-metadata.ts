@@ -25,6 +25,7 @@ export const PROJECT_METADATA: Record<string, ProjectMeta> = {
   },
   AppPlanillaPlantaPot: {
     type: 'desktop',
+    previewImage: 'assets/img/projects/Gestion_lab.png',
   },
   'Centro-de-vacunacion': {
     type: 'backend',
