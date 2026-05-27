@@ -1,0 +1,21 @@
+<div
+  *ngIf="src"
+  class="lightbox-backdrop"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="mediaType === 'video' ? 'Video preview' : 'Image preview'"
+  (click)="onBackdropClick($event)">
+  <button class="lightbox-close" (click)="closed.emit()" aria-label="Close">
+    <i class="uil uil-times"></i>
+  </button>
+  <video
+    *ngIf="mediaType === 'video'; else imgTpl"
+    class="lightbox-video"
+    [src]="src"
+    controls
+    playsinline>
+  </video>
+  <ng-template #imgTpl>
+    <img class="lightbox-img" [src]="src" alt="Project preview">
+  </ng-template>
+</div>

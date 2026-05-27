@@ -16,6 +16,7 @@ export interface ProfileLabels {
   generatingPDF: string;
   expand: string;
   collapse: string;
+  contactCta: string;
 }
 
 export interface EducationModel {

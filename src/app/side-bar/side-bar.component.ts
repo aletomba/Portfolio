@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, signal } from '@angular/core';
-import { ProfileModel, SkillCategoryModel } from '../models/profile.model';
+import { ProfileModel } from '../models/profile.model';
 import { CvPdfService } from '../services/cv-pdf.service';
 import { environment } from '../../environments/environment';
 
@@ -36,6 +36,11 @@ export class SideBarComponent {
     return this.isEnglish ? this.profileEN : this.profileES;
   }
 
+  get primaryContactUrl(): string | null {
+    const email = this.profile.contact.find(c => c.url.startsWith('mailto:'));
+    return email?.url ?? this.profile.contact[0]?.url ?? null;
+  }
+
   private readonly profileES: ProfileModel = {
     greeting: 'Hola, mi nombre es',
     name: 'Alejandro Tomba',
@@ -49,10 +54,10 @@ export class SideBarComponent {
       { name: 'IA e Integración', items: ['OpenAI API', 'Integración de IA', 'APIs REST'] },
       { name: 'Herramientas', items: ['GitHub', 'Insomnia', 'UML'] },
     ],
-    education: [{ institution: 'UTN FRCU', degree: 'Técnico en Programación' }],
+    education: [{ institution: 'UTN Facultad Regional Concepción del Uruguay', degree: 'Técnico en Programación' }],
     experience: [
-      { place: 'Municipio de Concepcion del Uruguay - Entre Ríos - Argentina', role: 'Práctica Profesional', area: 'Área de Tecnología' },
-      { place: 'Proyectos Personales', role: 'Integración de IA en aplicaciones', area: 'OpenAI API · .NET Core · Automatización inteligente' },
+      { place: 'Municipio de Concepcion del Uruguay - Entre Ríos - Argentina', role: 'Práctica Profesional', area: 'Área de Tecnología', period: '2024' },
+      { place: 'Proyectos Personales', role: 'Integración de IA en aplicaciones', area: 'OpenAI API · .NET Core · Automatización inteligente', period: '2024 – Presente' },
     ],
     courses: [
       { institution: 'Udemy', degree: 'API Mastery: C# en el Backend desde la práctica' },
@@ -63,9 +68,9 @@ export class SideBarComponent {
     contact: [
       { url: 'mailto:tombaalejandro456@gmail.com', label: 'tombaalejandro456@gmail.com', iconClass: 'uil uil-envelope' },
       { url: 'https://www.linkedin.com/in/alejandro-tomba-a5405312a/', label: 'LinkedIn', iconClass: 'uil uil-linkedin' },
-      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github', cvVisible: false },
+      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github' },
     ],
-    photoUrl: 'assets/img/Diseño sin título.jpg',
+    photoUrl: 'assets/img/alejandperf.jpg',
     photoAlt: 'Foto de perfil de Alejandro Tomba',
     labels: {
       skillsTitle: 'Habilidades Técnicas',
@@ -80,6 +85,7 @@ export class SideBarComponent {
       generatingPDF: 'Generando PDF...',
       expand: 'Expandir perfil',
       collapse: 'Colapsar perfil',
+      contactCta: '¡Hablemos!',
     },
   };
 
@@ -96,10 +102,10 @@ export class SideBarComponent {
       { name: 'AI & Integration', items: ['OpenAI API', 'AI Integration', 'REST APIs'] },
       { name: 'Tools', items: ['GitHub', 'Insomnia', 'UML'] },
     ],
-    education: [{ institution: 'UTN FRCU', degree: 'Programming Technician' }],
+    education: [{ institution: 'UTN Regional Faculty Concepcion del Uruguay', degree: 'Programming Technician' }],
     experience: [
-      { place: 'Municipality of Concepción del Uruguay - Entre Ríos - Argentina', role: 'Professional Internship', area: 'Technology Department' },
-      { place: 'Personal Projects', role: 'AI Integration in Applications', area: 'OpenAI API · .NET Core · Intelligent Automation' },
+      { place: 'Municipality of Concepción del Uruguay - Entre Ríos - Argentina', role: 'Professional Internship', area: 'Technology Department', period: '2024' },
+      { place: 'Personal Projects', role: 'AI Integration in Applications', area: 'OpenAI API · .NET Core · Intelligent Automation', period: '2022 – Present' },
     ],
     courses: [
       { institution: 'Udemy', degree: 'API Mastery: C# Backend from Practice' },
@@ -110,9 +116,9 @@ export class SideBarComponent {
     contact: [
       { url: 'mailto:tombaalejandro456@gmail.com', label: 'tombaalejandro456@gmail.com', iconClass: 'uil uil-envelope' },
       { url: 'https://www.linkedin.com/in/alejandro-tomba-a5405312a/', label: 'LinkedIn', iconClass: 'uil uil-linkedin' },
-      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github', cvVisible: false },
+      { url: 'https://github.com/aletomba', label: 'github.com/aletomba', iconClass: 'uil uil-github' },
     ],
-    photoUrl: 'assets/img/Diseño sin título.jpg',
+    photoUrl: 'assets/img/alejandperf.jpg',
     photoAlt: 'Alejandro Tomba profile photo',
     labels: {
       skillsTitle: 'Technical Skills',
@@ -127,6 +133,7 @@ export class SideBarComponent {
       generatingPDF: 'Generating PDF...',
       expand: 'Expand profile',
       collapse: 'Collapse profile',
+      contactCta: "Let's talk!",
     },
   };
 
