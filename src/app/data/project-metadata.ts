@@ -3,6 +3,7 @@ export type ProjectType = 'frontend' | 'backend' | 'fullstack' | 'desktop';
 export interface ProjectMeta {
   type: ProjectType;
   previewImage?: string;
+  previewImages?: string[];
   previewVideo?: string;
   demoUrl?: string;
 }
@@ -14,12 +15,17 @@ export const PROJECT_METADATA: Record<string, ProjectMeta> = {
   },
   WorldCupQatar: {
     type: 'frontend',
+    previewImages: [
+      'assets/img/projects/world-cup-1.png',
+      'assets/img/projects/world-cup-2.png',
+    ],
   },
   ApiLaboratorioAgua: {
     type: 'backend',
   },
   WebAppiWorldCup2022: {
     type: 'backend',
+    previewImage: 'assets/img/projects/world-cup-api.png',
   },
   'API.FurnitureStore': {
     type: 'backend',

@@ -44,7 +44,7 @@
     <ng-container *ngIf="getMeta(item.name) as meta; else noMeta">
       <div class="block-repo-in">
         <div class="card-preview"
-          (click)="meta.previewVideo ? openLightbox(meta.previewVideo, 'video') : openLightbox(getPreviewImage(item.name), 'image')"
+          (click)="meta.previewVideo ? openLightbox(meta.previewVideo, 'video') : openLightbox(getActiveImage(item.name), 'image')"
           role="button" tabindex="0"
           [attr.aria-label]="meta.previewVideo ? 'Play video preview' : 'Zoom image'">
           <ng-container *ngIf="meta.previewVideo; else imgPreviewWithMeta">
@@ -52,7 +52,25 @@
             <div class="video-play-hint"><i class="uil uil-play-circle"></i></div>
           </ng-container>
           <ng-template #imgPreviewWithMeta>
-            <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
+            <ng-container *ngIf="meta.previewImages && meta.previewImages.length > 1">
+              <img [src]="getActiveImage(item.name)" [alt]="item.name">
+              <button class="carousel-btn carousel-btn--prev" (click)="prevSlide(item.name, meta.previewImages!, $event)" aria-label="Previous image">
+                <i class="uil uil-angle-left"></i>
+              </button>
+              <button class="carousel-btn carousel-btn--next" (click)="nextSlide(item.name, meta.previewImages!, $event)" aria-label="Next image">
+                <i class="uil uil-angle-right"></i>
+              </button>
+              <div class="carousel-dots" (click)="$event.stopPropagation()">
+                <span
+                  *ngFor="let _ of meta.previewImages; let i = index"
+                  class="carousel-dot"
+                  [class.active]="(slideIndex.get(item.name) ?? 0) === i"
+                  (click)="goToSlide(item.name, i, $event)">
+                </span>
+              </div>
+            </ng-container>
+            <img *ngIf="!meta.previewImages || meta.previewImages.length <= 1"
+                 [src]="getPreviewImage(item.name)" [alt]="item.name">
           </ng-template>
           <div class="card-overlay" *ngIf="meta.demoUrl" (click)="$event.stopPropagation()">
             <a [href]="meta.demoUrl" target="_blank" rel="noopener noreferrer" class="demo-btn">
@@ -92,7 +110,7 @@
     <ng-template #noMeta>
       <div class="block-repo-in">
         <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name), 'image')" role="button" tabindex="0" aria-label="Zoom image">
-          <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
+          <img [src]="getPreviewImage(item.name)" [alt]="item.name">
         </div>
         <div class="card-body">
           <div class="card-title-row">

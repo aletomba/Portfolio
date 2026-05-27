@@ -26,6 +26,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   selectedLanguage: string | null = null;
   lightboxSrc: string | null = null;
   lightboxType: 'image' | 'video' = 'image';
+  readonly slideIndex = new Map<string, number>();
 
   allLanguages: string[] = [];
   filteredRepos: GithubRepo[] = [];
@@ -80,8 +81,40 @@ export class WorkComponent implements OnInit, OnDestroy {
 
   getPreviewImage(repoName: string): string {
     const meta = PROJECT_METADATA[repoName];
+    if (meta?.previewImages?.length) {
+      const idx = this.slideIndex.get(repoName) ?? 0;
+      return meta.previewImages[idx];
+    }
     if (meta?.previewImage) return meta.previewImage;
     return `https://opengraph.githubassets.com/1/aletomba/${repoName}`;
+  }
+
+  getActiveImage(repoName: string): string {
+    const meta = PROJECT_METADATA[repoName];
+    const images = meta?.previewImages;
+    if (!images?.length) return this.getPreviewImage(repoName);
+    const idx = this.slideIndex.get(repoName) ?? 0;
+    return images[idx];
+  }
+
+  nextSlide(repoName: string, images: string[], event: Event): void {
+    event.stopPropagation();
+    const current = this.slideIndex.get(repoName) ?? 0;
+    this.slideIndex.set(repoName, (current + 1) % images.length);
+    this.cdr.markForCheck();
+  }
+
+  prevSlide(repoName: string, images: string[], event: Event): void {
+    event.stopPropagation();
+    const current = this.slideIndex.get(repoName) ?? 0;
+    this.slideIndex.set(repoName, (current - 1 + images.length) % images.length);
+    this.cdr.markForCheck();
+  }
+
+  goToSlide(repoName: string, index: number, event: Event): void {
+    event.stopPropagation();
+    this.slideIndex.set(repoName, index);
+    this.cdr.markForCheck();
   }
 
   getTypeLabel(type: ProjectType | undefined): string {

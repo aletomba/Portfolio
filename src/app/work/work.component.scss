@@ -106,7 +106,7 @@
 }
 
 .status-message {
-  width: 100%;
+  width: 100%;  
   text-align: center;
   padding: 1rem;
   opacity: 0.8;
@@ -157,6 +157,10 @@
       .video-play-hint {
         opacity: 1;
       }
+
+      .carousel-btn {
+        opacity: 1;
+      }
     }
   }
 
@@ -166,6 +170,7 @@
     overflow: hidden;
     flex-shrink: 0;
     cursor: pointer;
+    background-color: var(--color-border);
 
     img {
       width: 100%;
@@ -212,6 +217,58 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 200ms ease;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 200ms ease, background 150ms ease;
+    z-index: 2;
+    padding: 0;
+
+    i { font-size: 1.2rem; line-height: 1; }
+
+    &:hover { background: rgba(0, 0, 0, 0.7); }
+
+    &--prev { left: 0.4rem; }
+    &--next { right: 0.4rem; }
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 0.35rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    z-index: 2;
+  }
+
+  .carousel-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+
+    &.active {
+      background: white;
+      transform: scale(1.2);
+    }
   }
 
   .demo-btn {
