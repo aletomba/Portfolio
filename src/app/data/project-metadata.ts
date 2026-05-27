@@ -3,6 +3,7 @@ export type ProjectType = 'frontend' | 'backend' | 'fullstack' | 'desktop';
 export interface ProjectMeta {
   type: ProjectType;
   previewImage?: string;
+  previewVideo?: string;
   demoUrl?: string;
 }
 

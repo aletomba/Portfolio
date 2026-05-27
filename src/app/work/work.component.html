@@ -43,8 +43,17 @@
     *ngFor="let item of filteredRepos; trackBy: trackByRepoId">
     <ng-container *ngIf="getMeta(item.name) as meta; else noMeta">
       <div class="block-repo-in">
-        <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name))" role="button" tabindex="0" aria-label="Zoom image">
-          <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
+        <div class="card-preview"
+          (click)="meta.previewVideo ? openLightbox(meta.previewVideo, 'video') : openLightbox(getPreviewImage(item.name), 'image')"
+          role="button" tabindex="0"
+          [attr.aria-label]="meta.previewVideo ? 'Play video preview' : 'Zoom image'">
+          <ng-container *ngIf="meta.previewVideo; else imgPreviewWithMeta">
+            <video [src]="meta.previewVideo" autoplay muted loop playsinline class="preview-video"></video>
+            <div class="video-play-hint"><i class="uil uil-play-circle"></i></div>
+          </ng-container>
+          <ng-template #imgPreviewWithMeta>
+            <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
+          </ng-template>
           <div class="card-overlay" *ngIf="meta.demoUrl" (click)="$event.stopPropagation()">
             <a [href]="meta.demoUrl" target="_blank" rel="noopener noreferrer" class="demo-btn">
               Demo <i class="uil uil-external-link-alt"></i>
@@ -82,7 +91,7 @@
 
     <ng-template #noMeta>
       <div class="block-repo-in">
-        <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name))" role="button" tabindex="0" aria-label="Zoom image">
+        <div class="card-preview" (click)="openLightbox(getPreviewImage(item.name), 'image')" role="button" tabindex="0" aria-label="Zoom image">
           <img [src]="getPreviewImage(item.name)" [alt]="item.name" loading="lazy">
         </div>
         <div class="card-body">
@@ -112,6 +121,6 @@
     </ng-template>
   </div>
 
-  <app-lightbox [src]="lightboxSrc" (closed)="closeLightbox()"></app-lightbox>
+  <app-lightbox [src]="lightboxSrc" [mediaType]="lightboxType" (closed)="closeLightbox()"></app-lightbox>
 
 </div>

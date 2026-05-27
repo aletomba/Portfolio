@@ -15,6 +15,7 @@ import {
 })
 export class LightboxComponent {
   @Input() src: string | null = null;
+  @Input() mediaType: 'image' | 'video' = 'image';
   @Output() closed = new EventEmitter<void>();
 
   @HostListener('document:keydown.escape')

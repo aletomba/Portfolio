@@ -25,6 +25,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   hasError = false;
   selectedLanguage: string | null = null;
   lightboxSrc: string | null = null;
+  lightboxType: 'image' | 'video' = 'image';
 
   allLanguages: string[] = [];
   filteredRepos: GithubRepo[] = [];
@@ -94,8 +95,9 @@ export class WorkComponent implements OnInit, OnDestroy {
     return map[type];
   }
 
-  openLightbox(src: string): void {
+  openLightbox(src: string, type: 'image' | 'video' = 'image'): void {
     this.lightboxSrc = src;
+    this.lightboxType = type;
     this.cdr.markForCheck();
   }
 
